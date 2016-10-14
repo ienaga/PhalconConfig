@@ -31,7 +31,7 @@ all:
 ## app/config/config.php
 
 ```php
-$configLoader = \PhalconConfig\Loader($ignore);
+$configLoader = new \PhalconConfig\Loader($ignore);
 return $configLoader
     ->setIgnore(["routing"]) // ignore yml names
     ->setEnvironment("stg")
