@@ -1,0 +1,22 @@
+{
+    "name": "ienaga/phalcon-config-loader-for-yaml",
+    "homepage": "https://github.com/ienaga/PhalconConfig",
+    "description": "Phalcon Config Loarder for Yaml",
+    "keywords": ["config", "phalcon", "yaml"],
+    "type": "library",
+    "license": "MIT",
+    "authors":[
+        {
+            "name": "Toshiyuki Ienaga",
+            "email": "ienaga@tvon.jp"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "PhalconConfig\\": "src/"
+        }
+    }
+}
