@@ -22,7 +22,6 @@ class Loader
      */
     private $base_path = "/";
 
-
     /**
      * @return array
      */
@@ -91,13 +90,16 @@ class Loader
         // environment
         $env = $this->getEnvironment();
 
+        // ignore names
+        $ignore = $this->getIgnore();
+
         // load
-        if ($dir = opendir($appPath ."/config")) {
+        if ($dir = opendir($appPath ."/config/")) {
 
             while (($file = readdir($dir)) !== false) {
 
                 $ext = explode(".", $file);
-                if ($ext[1] !== "yml" || in_array($ext[0], $this->ignore)) {
+                if ($ext[1] !== "yml" || in_array($ext[0], $ignore)) {
                     continue;
                 }
 
