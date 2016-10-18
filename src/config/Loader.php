@@ -113,14 +113,14 @@ class Loader
                     continue;
                 }
 
-                $yml = new \Phalcon\Config\Adapter\Yaml($configPath . $file, [
+                $yml = new \Phalcon\Config\Adapter\Yaml($configPath . $file, array(
                     '!app_path' => function($value) use ($appPath) {
                         return $appPath . $value;
                     },
                     '!base_path' => function($value) use ($basePath) {
                         return $basePath . $value;
                     }
-                ]);
+                ));
 
                 // merge environment
                 if ($env && $yml->get($env)) {

@@ -15,7 +15,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $env     = "dev";
         $loader  = new \PhalconConfig\Loader();
         $results = $loader
-            ->setIgnore(["ignore"])
+            ->setIgnore(array("ignore"))
             ->setEnvironment($env)
             ->setBasePath(realpath(dirname(__FILE__)))
             ->load();
@@ -37,7 +37,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $loader  = new \PhalconConfig\Loader();
         $results = $loader
-            ->setIgnore(["ignore"])
+            ->setIgnore(array("ignore"))
             ->setEnvironment("dev")
             ->setBasePath("/empty/dir/")
             ->load();
@@ -52,7 +52,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $loader  = new \PhalconConfig\Loader();
         $results = $loader
-            ->setIgnore(["ignore"])
+            ->setIgnore(array("ignore"))
             ->setEnvironment("empty")
             ->setBasePath(realpath(dirname(__FILE__)))
             ->load();
