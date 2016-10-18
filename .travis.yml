@@ -19,6 +19,3 @@ before_install:
 script:
   - php -r "echo \Phalcon\Version::get();"
   - vendor/bin/phpunit
-
-notifications:
-  email: ienaga@tvon.jp
