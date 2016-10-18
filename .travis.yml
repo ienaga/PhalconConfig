@@ -13,8 +13,6 @@ cache:
     - ~/cphalcon
 
 before_install:
-  - pecl install yaml
-  - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install --dev -o --prefer-source --no-interaction
   - chmod +x bin/install-phalcon.sh
   - bin/install-phalcon.sh 3.0.x
@@ -22,3 +20,8 @@ before_install:
 script:
   - php -r "echo \Phalcon\Version::get();"
   - vendor/bin/phpunit
+
+addons:
+  apt:
+    packages:
+      - libyaml-dev
