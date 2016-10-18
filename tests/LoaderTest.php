@@ -1,7 +1,7 @@
 <?php
 
 
-namespace PhalconConfig;
+include "../src/config/Loader.php";
 
 
 class LoaderTest extends \PHPUnit_Framework_TestCase
