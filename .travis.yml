@@ -12,6 +12,9 @@ cache:
     - ~/.composer/cache
     - ~/cphalcon
 
+before_script:
+  - chmod a+x bin/install-phalcon.sh
+
 before_install:
   - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh 3.0.x
