@@ -1,5 +1,8 @@
 # Phalcon Config Loarder for Yaml
 
+[![Build Status](https://travis-ci.org/ienaga/PhalconConfig.svg?branch=master)](https://travis-ci.org/ienaga/PhalconConfig)
+
+
 Loads all the `yml` in the directory of the `app/config`.
 
 
