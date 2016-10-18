@@ -1,10 +1,7 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
-  - 7.0
+  - nightly
 
 cache:
   directories:
@@ -14,8 +11,8 @@ cache:
 
 before_install:
   - pecl channel-update pecl.php.net
-  - pecl install yaml < /dev/null
-  - if [[ "$(php -v | grep 'PHP 7')" ]]; then echo 'extension=yaml.so' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini; fi
+  - pecl install yaml-beta < /dev/null
+  - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install --dev -o --prefer-source --no-interaction
   - chmod +x bin/install-phalcon.sh
   - bin/install-phalcon.sh 3.0.x
