@@ -1,7 +1,7 @@
 <?php
 
 
-include "../src/config/Loader.php";
+require_once __DIR__ . "../src/config/Loader.php";
 
 
 class LoaderTest extends \PHPUnit_Framework_TestCase
