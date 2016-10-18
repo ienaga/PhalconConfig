@@ -13,6 +13,8 @@ cache:
     - ~/cphalcon
 
 before_install:
+  - pecl channel-update pecl.php.net
+  - pecl install yaml-beta < /dev/null
   - composer install --dev -o --prefer-source --no-interaction
   - chmod +x bin/install-phalcon.sh
   - bin/install-phalcon.sh 3.0.x
