@@ -42,7 +42,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             ->setBasePath("/empty/dir/")
             ->load();
 
-        $this->assertEmpty($results);
+        $this->assertCount(0, $results);
     }
 
     /**
