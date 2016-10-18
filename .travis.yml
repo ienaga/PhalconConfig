@@ -14,7 +14,7 @@ cache:
 
 before_install:
   - pecl channel-update pecl.php.net
-  - pecl install yaml-beta < /dev/null
+  - pecl install yaml < /dev/null
   - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install --dev -o --prefer-source --no-interaction
   - chmod +x bin/install-phalcon.sh
