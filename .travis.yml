@@ -13,7 +13,7 @@ cache:
     - ~/cphalcon
 
 before_install:
-  - composer install --prefer-source --no-interaction
+  - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh 3.0.x
 
 script:
