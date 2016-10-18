@@ -1,5 +1,6 @@
 # Phalcon Config Loarder for Yaml
 
+Loads all the `yml` in the directory of the `app/config`.
 
 
 ## Composer
@@ -12,9 +13,10 @@
 }
 ```
 
+
 ## BASE_PATH and APP_PATH
 
-```yaml
+```yaßml
 all:
   application:
     appDir:         !app_path  /
@@ -28,15 +30,15 @@ all:
     baseUri:        /project_name/
 ```
 
+
 ## app/config/config.php
 
 ```php
-$configLoader = new \PhalconConfig\Loader($ignore);
+$configLoader = new \PhalconConfig\Loader();
 return $configLoader
     ->setIgnore(["routing"]) // ignore yml names
-    ->setEnvironment("stg")
-    ->setBasePath(BATH_PATH)
+    ->setEnvironment("stg") // default dev
+    ->setBasePath(realpath(dirname(__FILE__) . '/../..'))
     ->load();
 ```
-
 

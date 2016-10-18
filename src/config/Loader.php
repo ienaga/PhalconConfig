@@ -8,6 +8,11 @@ class Loader
 {
 
     /**
+     * @var string
+     */
+    const ALL = "all";
+
+    /**
      * @var array
      */
     private $ignore = array();
@@ -53,7 +58,7 @@ class Loader
      * @param  string $environment
      * @return $this
      */
-    public function setEnvironment($environment)
+    public function setEnvironment($environment = "dev")
     {
         $this->environment = $environment;
         return $this;
@@ -82,26 +87,33 @@ class Loader
      */
     public function load()
     {
+        // config
         $config = new \Phalcon\Config();
 
         // path
-        $basePath = $this->getBasePath();
-        $appPath  = $basePath . "/app";
+        $basePath   = $this->getBasePath();
+        $appPath    = $basePath . "/app";
+        $configPath = $appPath  . "/config/";
+
+        // dir valid
+        if (!file_exists($appPath) || !file_exists($configPath)) {
+            return $config;
+        }
 
         // environment
         $env = $this->getEnvironment();
 
         // load
-        if ($dir = opendir($appPath ."/config")) {
+        if ($dir = opendir($configPath)) {
 
             while (($file = readdir($dir)) !== false) {
 
                 $ext = explode(".", $file);
-                if ($ext[1] !== "yml" || in_array($ext[0], $this->ignore)) {
+                if ($ext[1] !== "yml" || in_array($ext[0], $this->getIgnore())) {
                     continue;
                 }
 
-                $yml =  new \Phalcon\Config\Adapter\Yaml($appPath ."/config/". $file, [
+                $yml = new \Phalcon\Config\Adapter\Yaml($configPath . $file, [
                     '!app_path' => function($value) use ($appPath) {
                         return $appPath . $value;
                     },
@@ -110,12 +122,14 @@ class Loader
                     }
                 ]);
 
+                // merge environment
                 if ($env && $yml->get($env)) {
                     $config->merge($yml->get($env));
                 }
 
-                if ($yml->get("all")) {
-                    $config->merge($yml->get("all"));
+                // merge all
+                if ($yml->get(self::ALL)) {
+                    $config->merge($yml->get(self::ALL));
                 }
             }
 
