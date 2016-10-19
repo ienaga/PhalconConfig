@@ -1,10 +1,8 @@
 <?php
 
-
 namespace PhalconConfig;
 
-
-class Loader
+class Loader implements LoaderInterface
 {
 
     /**
@@ -114,10 +112,10 @@ class Loader
                 }
 
                 $yml = new \Phalcon\Config\Adapter\Yaml($configPath . $file, array(
-                    '!app_path' => function($value) use ($appPath) {
+                    "!app_path"  => function($value) use ($appPath)  {
                         return $appPath . $value;
                     },
-                    '!base_path' => function($value) use ($basePath) {
+                    "!base_path" => function($value) use ($basePath) {
                         return $basePath . $value;
                     }
                 ));
