@@ -6,7 +6,6 @@
 [![Latest Stable Version](https://poser.pugx.org/ienaga/phalcon-config-loader-for-yaml/v/stable)](https://packagist.org/packages/ienaga/phalcon-config-loader-for-yaml) [![Total Downloads](https://poser.pugx.org/ienaga/phalcon-config-loader-for-yaml/downloads)](https://packagist.org/packages/ienaga/phalcon-config-loader-for-yaml) [![Latest Unstable Version](https://poser.pugx.org/ienaga/phalcon-config-loader-for-yaml/v/unstable)](https://packagist.org/packages/ienaga/phalcon-config-loader-for-yaml) [![License](https://poser.pugx.org/ienaga/phalcon-config-loader-for-yaml/license)](https://packagist.org/packages/ienaga/phalcon-config-loader-for-yaml)
 
 
-
 Loads all the `yml` in the directory of the `app/config`.
 
 

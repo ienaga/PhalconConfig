@@ -1,8 +1,6 @@
 <?php
 
-
 namespace PhalconConfig;
-
 
 interface LoaderInterface
 {

@@ -130,10 +130,8 @@ class Loader implements LoaderInterface
                     $config->merge($yml->get(self::ALL));
                 }
             }
-
             closedir($dir);
         }
-
         return $config;
     }
 }
