@@ -45,7 +45,7 @@ $configLoader = new \PhalconConfig\Loader();
 return $configLoader
     ->setIgnore(["routing"]) // ignore yml names
     ->setEnvironment("stg") // default dev
-    ->setBasePath(realpath(dirname(__FILE__) . '/../..'))
+    ->setBasePath(realpath(dirname(__FILE__) . "/../.."))
     ->load();
 ```
 
