@@ -134,4 +134,64 @@ class Loader implements LoaderInterface
         }
         return $config;
     }
+
+    /**
+     * @param  \Phalcon\Config $config
+     * @param  string          $addDirPath
+     * @return \Phalcon\Config
+     */
+    public function add(\Phalcon\Config $config, $addDirPath)
+    {
+
+        // path
+        $basePath   = $this->getBasePath();
+        $appPath    = $basePath . "/app";
+        $configPath = $appPath  . "/config/";
+
+        // dir valid
+        if (!file_exists($appPath) || !file_exists($configPath)) {
+            return $config;
+        }
+
+        // environment
+        $env = $this->getEnvironment();
+
+        // add end slash
+        if (mb_substr($addDirPath, -1) !== "/") {
+            $addDirPath .= "/";
+        }
+
+        // load
+        if ($dir = opendir($addDirPath)) {
+
+            while (($file = readdir($dir)) !== false) {
+
+                $ext = explode(".", $file);
+                if ($ext[1] !== "yml" || in_array($ext[0], $this->getIgnore())) {
+                    continue;
+                }
+
+                $yml = new \Phalcon\Config\Adapter\Yaml($addDirPath . $file, array(
+                    "!app_path"  => function($value) use ($appPath)  {
+                        return $appPath . $value;
+                    },
+                    "!base_path" => function($value) use ($basePath) {
+                        return $basePath . $value;
+                    }
+                ));
+
+                // merge environment
+                if ($env && $yml->get($env)) {
+                    $config->merge($yml->get($env));
+                }
+
+                // merge all
+                if ($yml->get(self::ALL)) {
+                    $config->merge($yml->get(self::ALL));
+                }
+            }
+            closedir($dir);
+        }
+        return $config;
+    }
 }
