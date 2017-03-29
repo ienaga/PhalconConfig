@@ -25,7 +25,6 @@ class Loader implements LoaderInterface
      */
     private $base_path = "/";
 
-
     /**
      * @return array
      */
@@ -142,6 +141,8 @@ class Loader implements LoaderInterface
      */
     public function add(\Phalcon\Config $config, $addDirPath)
     {
+        // child config
+        $childConfig = new \Phalcon\Config();
 
         // path
         $basePath   = $this->getBasePath();
@@ -182,16 +183,44 @@ class Loader implements LoaderInterface
 
                 // merge environment
                 if ($env && $yml->get($env)) {
-                    $config->merge($yml->get($env));
+                    $childConfig->merge($yml->get($env));
                 }
 
                 // merge all
                 if ($yml->get(self::ALL)) {
-                    $config->merge($yml->get(self::ALL));
+                    $childConfig->merge($yml->get(self::ALL));
                 }
             }
             closedir($dir);
         }
-        return $config;
+
+        $this->_unset($config, $childConfig);
+        return $childConfig->merge($config);
+    }
+
+    /**
+     * @param \Phalcon\Config $parent
+     * @param \Phalcon\Config $child
+     */
+    protected function _unset(\Phalcon\Config $parent, \Phalcon\Config $child)
+    {
+        foreach ($child as $key => $value) {
+            if (!$parent->get($key)) {
+                continue;
+            }
+
+            if ($value instanceof \Phalcon\Config) {
+                $this->_unset($parent->get($key), $value);
+                continue;
+            }
+
+            if (!is_numeric($key)) {
+                continue;
+            }
+
+            foreach ($parent as $idx => $val) {
+                unset($parent->{$idx});
+            }
+        }
     }
 }
