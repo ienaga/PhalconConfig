@@ -84,12 +84,11 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
             $this->assertEquals($parent["list"][$key], $pattern[$key]);
         }
 
-
         $child = $loader
             ->setIgnore(array("ignore", "app", "parent"))
             ->setEnvironment(getenv("ENVIRONMENT"))
             ->setBasePath(realpath(dirname(__FILE__)))
-            ->add($parent, realpath(dirname(__FILE__)));
+            ->add($parent, realpath(dirname(__FILE__)). "/app/config");
 
         $this->assertEquals($child["mode"], "child");
         $this->assertEquals($child["mysql"]["port"], 3316);

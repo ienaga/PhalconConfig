@@ -195,7 +195,7 @@ class Loader implements LoaderInterface
         }
 
         $this->_unset($config, $childConfig);
-        return $childConfig->merge($config);
+        return $config->merge($childConfig);
     }
 
     /**
