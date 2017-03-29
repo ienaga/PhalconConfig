@@ -12,7 +12,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
         $env     = "dev";
         $loader  = new \PhalconConfig\Loader();
         $results = $loader
-            ->setIgnore(array("ignore"))
+            ->setIgnore(array("ignore", "parent", "child"))
             ->setEnvironment($env)
             ->setBasePath(realpath(dirname(__FILE__)))
             ->load();
@@ -34,7 +34,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $loader  = new \PhalconConfig\Loader();
         $results = $loader
-            ->setIgnore(array("ignore"))
+            ->setIgnore(array("ignore", "parent", "child"))
             ->setEnvironment("dev")
             ->setBasePath("/empty/dir/")
             ->load();
@@ -49,7 +49,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     {
         $loader  = new \PhalconConfig\Loader();
         $results = $loader
-            ->setIgnore(array("ignore"))
+            ->setIgnore(array("ignore", "parent", "child"))
             ->setEnvironment("empty")
             ->setBasePath(realpath(dirname(__FILE__)))
             ->load();
@@ -62,5 +62,41 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
 
         // ignore
         $this->assertEmpty($results["ignore"]);
+    }
+
+    /**
+     * test add
+     */
+    public function testAdd()
+    {
+        $loader  = new \PhalconConfig\Loader();
+        $parent = $loader
+            ->setIgnore(array("ignore", "app", "child"))
+            ->setEnvironment("test")
+            ->setBasePath(realpath(dirname(__FILE__)))
+            ->load();
+
+        $this->assertEquals($parent["mode"], "parent");
+        $this->assertEquals($parent["mysql"]["port"], 3306);
+
+        $pattern = array(0, 1, 2, 3);
+        foreach ($parent["list"] as $key => $value) {
+            $this->assertEquals($parent["list"][$key], $pattern[$key]);
+        }
+
+
+        $child = $loader
+            ->setIgnore(array("ignore", "app", "parent"))
+            ->setEnvironment(getenv("ENVIRONMENT"))
+            ->setBasePath(realpath(dirname(__FILE__)))
+            ->add($parent, realpath(dirname(__FILE__)));
+
+        $this->assertEquals($child["mode"], "child");
+        $this->assertEquals($child["mysql"]["port"], 3316);
+
+        $pattern = array(10, 11, 12, 13);
+        foreach ($child["list"] as $key => $value) {
+            $this->assertEquals($child["list"][$key], $pattern[$key]);
+        }
     }
 }

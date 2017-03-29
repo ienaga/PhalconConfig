@@ -1,0 +1,9 @@
+all:
+  mode: parent
+  mysql:
+    port: 3306
+  list:
+    - 0
+    - 1
+    - 2
+    - 3
