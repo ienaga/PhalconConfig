@@ -209,8 +209,11 @@ class Loader implements LoaderInterface
                 continue;
             }
 
-            if ($value instanceof \Phalcon\Config) {
-                $this->_unset($parent->get($key), $value);
+            $config = $parent->get($key);
+            if ($value  instanceof \Phalcon\Config &&
+                $config instanceof \Phalcon\Config
+            ) {
+                $this->_unset($config, $value);
                 continue;
             }
 
