@@ -168,7 +168,10 @@ class Loader implements LoaderInterface
             while (($file = readdir($dir)) !== false) {
 
                 $ext = explode(".", $file);
-                if ($ext[1] !== "yml" || in_array($ext[0], $this->getIgnore())) {
+                if (!isset($ext[1]) ||
+                    $ext[1] !== "yml" ||
+                    in_array($ext[0], $this->getIgnore())
+                ) {
                     continue;
                 }
 
