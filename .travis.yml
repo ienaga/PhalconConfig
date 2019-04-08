@@ -13,10 +13,11 @@ cache:
     - ~/cphalcon
 
 before_install:
+  - php -i
   - phpenv config-rm xdebug.ini
   - chmod +x bin/*.sh
   - pecl channel-update pecl.php.net
-  - (CFLAGS="-O1 -g3 -fno-strict-aliasing"; pecl install yaml < /dev/null)
+  - pecl install yaml < /dev/null
   - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh v3.4.1
