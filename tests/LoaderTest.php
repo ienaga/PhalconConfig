@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../src/config/adapter/yaml/Loader.php";
+require_once __DIR__ . "/../src/Phalcon/config/adapter/yaml/Loader.php";
 
 class LoaderTest extends \PHPUnit_Framework_TestCase
 {

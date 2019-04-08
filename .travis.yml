@@ -13,6 +13,7 @@ cache:
     - ~/cphalcon
 
 before_install:
+  - php -m
   - chmod +x bin/*.sh
   - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh v3.4.1
