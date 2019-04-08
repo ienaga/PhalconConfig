@@ -1,6 +1,6 @@
 <?php
 
-namespace PhalconConfig;
+namespace Phalcon\Config\Adapter\Yaml;
 
 interface LoaderInterface
 {

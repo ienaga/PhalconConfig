@@ -1,6 +1,9 @@
 <?php
 
-namespace PhalconConfig;
+namespace Phalcon\Config\Adapter\Yaml;
+
+use Phalcon\Config;
+use Phalcon\Config\Adapter\Yaml;
 
 class Loader implements LoaderInterface
 {
@@ -13,79 +16,80 @@ class Loader implements LoaderInterface
     /**
      * @var array
      */
-    private $ignore = array();
+    private $_ignore = array();
 
     /**
      * @var string
      */
-    private $environment = "dev";
+    private $_environment = "dev";
 
     /**
      * @var string
      */
-    private $base_path = "/";
+    private $_basePath = "/";
 
     /**
      * @return array
      */
-    public function getIgnore()
+    public function getIgnore(): array
     {
-        return $this->ignore;
+        return $this->_ignore;
     }
 
     /**
      * @param  array $ignore
-     * @return $this
+     * @return Loader
      */
-    public function setIgnore($ignore = array())
+    public function setIgnore(array $ignore = array()): Loader
     {
-        $this->ignore = $ignore;
+        $this->_ignore = $ignore;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getEnvironment()
+    public function getEnvironment(): string
     {
-        return $this->environment;
+        return $this->_environment;
     }
 
     /**
      * @param  string $environment
-     * @return $this
+     * @return Loader
      */
-    public function setEnvironment($environment = "dev")
+    public function setEnvironment(string $environment = "dev"): Loader
     {
-        $this->environment = $environment;
+        $this->_environment = $environment;
         return $this;
     }
 
     /**
      * @return string
      */
-    public function getBasePath()
+    public function getBasePath(): string
     {
-        return $this->base_path;
+        return $this->_basePath;
     }
 
     /**
      * @param  string $base_path
-     * @return $this
+     * @return Loader
      */
-    public function setBasePath($base_path = "/")
+    public function setBasePath(string $base_path = "/"): Loader
     {
-        $this->base_path = $base_path;
+        $this->_basePath = $base_path;
         return $this;
     }
 
     /**
-     * @return \Phalcon\Config
+     * @return Config
+     * @throws Config\Exception
      */
     public function load()
     {
         // config
-        $config = new \Phalcon\Config();
+        $config = new Config();
 
         // path
         $basePath   = $this->getBasePath();
@@ -110,7 +114,7 @@ class Loader implements LoaderInterface
                     continue;
                 }
 
-                $yml = new \Phalcon\Config\Adapter\Yaml($configPath . $file, array(
+                $yml = new Yaml($configPath . $file, array(
                     "!app_path"  => function($value) use ($appPath)  {
                         return $appPath . $value;
                     },
@@ -131,18 +135,20 @@ class Loader implements LoaderInterface
             }
             closedir($dir);
         }
+
         return $config;
     }
 
     /**
-     * @param  \Phalcon\Config $config
-     * @param  string          $addDirPath
-     * @return \Phalcon\Config
+     * @param  Config $config
+     * @param  $addDirPath
+     * @return Config
+     * @throws Config\Exception
      */
-    public function add(\Phalcon\Config $config, $addDirPath)
+    public function add(Config $config, $addDirPath)
     {
         // child config
-        $childConfig = new \Phalcon\Config();
+        $childConfig = new Config();
 
         // path
         $basePath   = $this->getBasePath();
@@ -175,7 +181,7 @@ class Loader implements LoaderInterface
                     continue;
                 }
 
-                $yml = new \Phalcon\Config\Adapter\Yaml($addDirPath . $file, array(
+                $yml = new Yaml($addDirPath . $file, array(
                     "!app_path"  => function($value) use ($appPath)  {
                         return $appPath . $value;
                     },
@@ -202,20 +208,19 @@ class Loader implements LoaderInterface
     }
 
     /**
-     * @param \Phalcon\Config $parent
-     * @param \Phalcon\Config $child
+     * @param Config $parent
+     * @param Config $child
      */
-    protected function _unset(\Phalcon\Config $parent, \Phalcon\Config $child)
+    protected function _unset(Config $parent, Config $child)
     {
         foreach ($child as $key => $value) {
+
             if (!$parent->get($key)) {
                 continue;
             }
 
             $config = $parent->get($key);
-            if ($value  instanceof \Phalcon\Config &&
-                $config instanceof \Phalcon\Config
-            ) {
+            if ($value  instanceof Config && $config instanceof Config) {
                 $this->_unset($config, $value);
                 continue;
             }
@@ -227,6 +232,7 @@ class Loader implements LoaderInterface
             foreach ($parent as $idx => $val) {
                 unset($parent->{$idx});
             }
+
         }
     }
 }

@@ -35,14 +35,29 @@ all:
     libraryDir:     !app_path  /library/
     cacheDir:       !base_path /cache/
     baseUri:        /project_name/
+
+dev:
+  image: "https://dev.example.com"
+  
+stg:
+  image: "https://stgexample.com"
+  
+prd:
+  image: "https://example.com"
+  
+test:
+  image: "https://test.example.com"
+  
+local:
+  image: "https://local.example.com"
 ```
 
 
 ## app/config/config.php
 
 ```php
-$configLoader = new \PhalconConfig\Loader();
-return $configLoader
+$loader = new Phalcon\Config\Adapter\Yaml\Loader();
+return $loader
     ->setIgnore(["routing"]) // ignore yml names
     ->setEnvironment("stg") // default dev
     ->setBasePath(realpath(dirname(__FILE__) . "/../.."))

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . "/../src/config/Loader.php";
+require_once __DIR__ . "/../src/config/adapter/yaml/Loader.php";
 
 class LoaderTest extends \PHPUnit_Framework_TestCase
 {
@@ -10,7 +10,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
     public function testLoad()
     {
         $env     = "dev";
-        $loader  = new \PhalconConfig\Loader();
+        $loader  = new Phalcon\Config\Adapter\Yaml\Loader();
         $results = $loader
             ->setIgnore(array("ignore", "parent", "child"))
             ->setEnvironment($env)
@@ -32,7 +32,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyDirectoryCase()
     {
-        $loader  = new \PhalconConfig\Loader();
+        $loader  = new Phalcon\Config\Adapter\Yaml\Loader();
         $results = $loader
             ->setIgnore(array("ignore", "parent", "child"))
             ->setEnvironment("dev")
@@ -47,7 +47,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testEmptyEnvironmentCase()
     {
-        $loader  = new \PhalconConfig\Loader();
+        $loader  = new Phalcon\Config\Adapter\Yaml\Loader();
         $results = $loader
             ->setIgnore(array("ignore", "parent", "child"))
             ->setEnvironment("empty")
@@ -69,7 +69,7 @@ class LoaderTest extends \PHPUnit_Framework_TestCase
      */
     public function testAdd()
     {
-        $loader  = new \PhalconConfig\Loader();
+        $loader  = new Phalcon\Config\Adapter\Yaml\Loader();
         $parent = $loader
             ->setIgnore(array("ignore", "app", "child"))
             ->setEnvironment("test")

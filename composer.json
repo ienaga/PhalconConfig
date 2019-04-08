@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "PhalconConfig\\": "src/"
+            "Phalcon\\Config\\Adapter\\Yaml\\": "src/"
         }
     }
 }
