@@ -18,6 +18,7 @@ before_install:
   - php --ini
   - pecl install -f yaml-2.0.4 < /dev/null
   - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - phpenv rehash
   - php --ini
   - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh v3.4.1
