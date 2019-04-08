@@ -17,7 +17,7 @@ before_install:
   - pecl channel-update pecl.php.net
   - php --ini
   - pecl install yaml-2.0.4 < /dev/null
-  - phpenv config-add yaml.ini
+  - echo "extension=/tmp/pear/install/pear-build-travisxfFTN2/yaml-2.0.4/modules/yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/yaml.ini
   - ls -al ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/
   - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh v3.4.1
