@@ -15,9 +15,8 @@ cache:
 before_install:
   - chmod +x bin/*.sh
   - pecl channel-update pecl.php.net
-  - pecl install -f yaml < /dev/null
-  - find ~/ -name "yaml.so"
-  - echo "extension=/home/travis/.phpenv/versions/7.0.25/lib/php/extensions/no-debug-zts-20151012/yaml.so" >> $(dirname $(dirname $(which phpenv)))/versions/$(phpenv version-name)/etc/conf.d/yaml.ini
+  - bin/install-yaml.sh
+  - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/yaml.ini
   - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh v3.4.1
 
