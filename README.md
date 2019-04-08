@@ -10,12 +10,19 @@
 Loads all the `yml` in the directory of the `app/config`.
 
 
+## Version
+```
+PHP: 7.0.x, 7.1.x, 7.2.x
+Phalcon: 3.x
+```
+
+
 ## Composer
 
 ```json
 {
     "require": {
-       "ienaga/phalcon-config-loader-for-yaml": "*"
+       "ienaga/phalcon-config-loader-for-yaml": "2.*"
     }
 }
 ```
