@@ -17,9 +17,8 @@ before_install:
   - pecl channel-update pecl.php.net
   - php --ini
   - pecl install yaml-2.0.4 < /dev/null
-  - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-  - phpenv rehash
-  - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - phpenv config-add yaml.ini
+  - ls -al ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/
   - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh v3.4.1
 
