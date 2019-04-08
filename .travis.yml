@@ -16,7 +16,7 @@ before_install:
   - chmod +x bin/*.sh
   - pecl channel-update pecl.php.net
   - php --ini
-  - pecl install -f yaml-2.0.4 < /dev/null
+  - pecl install yaml-2.0.4 < /dev/null
   - echo "extension=yaml.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - phpenv rehash
   - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
