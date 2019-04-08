@@ -1,6 +1,7 @@
 language: php
 
 php:
+  - 7.0
   - 7.1
   - 7.2
   - 7.3
@@ -15,7 +16,7 @@ before_install:
   - chmod +x bin/*.sh
   - pecl channel-update pecl.php.net
   - pecl install -f yaml-2.0.4 < /dev/null
-  - echo "extension=yaml.so" >> yaml.ini && phpenv config-add yaml.ini
+  - echo "extension=yaml.so" >> $HOME/.phpenv/versions/$TRAVIS_PHP_VERSION/etc/conf.d/yaml.ini
   - composer install --dev -o --prefer-source --no-interaction
   - bin/install-phalcon.sh v3.4.1
 
